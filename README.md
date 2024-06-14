@@ -825,6 +825,206 @@ class Program
 ```
 
 
+__________________________________________________________________________________________________________________
+
+# LISTE , DIZIONARI E CODE
+
+
+In C#, le collezioni come liste, dizionari e code offrono potenti strumenti per gestire gruppi di dati. Ecco una panoramica di ciascuna di queste collezioni, inclusi esempi di utilizzo.
+
+### Liste
+
+Le liste (`List<T>`) sono collezioni generiche che consentono di memorizzare elementi dello stesso tipo. Sono dinamiche, il che significa che possono cambiare dimensione automaticamente quando si aggiungono o si rimuovono elementi.
+
+#### Esempio di Utilizzo delle Liste
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Creazione di una lista di interi
+        List<int> numeri = new List<int>();
+
+        // Aggiunta di elementi
+        numeri.Add(1);
+        numeri.Add(2);
+        numeri.Add(3);
+
+        // Iterazione attraverso la lista
+        Console.WriteLine("Elementi nella lista:");
+        foreach (int numero in numeri)
+        {
+            Console.WriteLine(numero);
+        }
+
+        // Accesso agli elementi per indice
+        Console.WriteLine("Elemento all'indice 1: " + numeri[1]);
+
+        // Rimozione di un elemento
+        numeri.Remove(2);
+        Console.WriteLine("Dopo la rimozione:");
+        foreach (int numero in numeri)
+        {
+            Console.WriteLine(numero);
+        }
+    }
+}
+```
+
+### Dizionari
+
+I dizionari (`Dictionary<TKey, TValue>`) sono collezioni generiche che memorizzano coppie chiave-valore. Consentono un accesso rapido ai valori tramite le chiavi.
+
+#### Esempio di Utilizzo dei Dizionari
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Creazione di un dizionario che mappa stringhe a interi
+        Dictionary<string, int> età = new Dictionary<string, int>();
+
+        // Aggiunta di elementi
+        età.Add("Alice", 30);
+        età.Add("Bob", 25);
+        età.Add("Charlie", 35);
+
+        // Iterazione attraverso il dizionario
+        Console.WriteLine("Elementi nel dizionario:");
+        foreach (KeyValuePair<string, int> kvp in età)
+        {
+            Console.WriteLine(kvp.Key + ": " + kvp.Value);
+        }
+
+        // Accesso agli elementi tramite chiave
+        Console.WriteLine("Età di Alice: " + età["Alice"]);
+
+        // Rimozione di un elemento
+        età.Remove("Bob");
+        Console.WriteLine("Dopo la rimozione:");
+        foreach (KeyValuePair<string, int> kvp in età)
+        {
+            Console.WriteLine(kvp.Key + ": " + kvp.Value);
+        }
+    }
+}
+```
+
+### Code
+
+Le code (`Queue<T>`) sono collezioni generiche che seguono il principio FIFO (First In, First Out). Gli elementi vengono aggiunti alla fine della coda e rimossi dall'inizio.
+
+#### Esempio di Utilizzo delle Code
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Creazione di una coda di stringhe
+        Queue<string> coda = new Queue<string>();
+
+        // Aggiunta di elementi
+        coda.Enqueue("Primo");
+        coda.Enqueue("Secondo");
+        coda.Enqueue("Terzo");
+
+        // Iterazione attraverso la coda
+        Console.WriteLine("Elementi nella coda:");
+        foreach (string elemento in coda)
+        {
+            Console.WriteLine(elemento);
+        }
+
+        // Rimozione di un elemento
+        string primoElemento = coda.Dequeue();
+        Console.WriteLine("Elemento rimosso: " + primoElemento);
+
+        // Visualizzazione del prossimo elemento senza rimuoverlo
+        string prossimoElemento = coda.Peek();
+        Console.WriteLine("Prossimo elemento: " + prossimoElemento);
+
+        // Stato della coda dopo la rimozione
+        Console.WriteLine("Elementi nella coda dopo la rimozione:");
+        foreach (string elemento in coda)
+        {
+            Console.WriteLine(elemento);
+        }
+    }
+}
+```
+
+### Esempio Completo con Liste, Dizionari e Code
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Lista
+        List<int> numeri = new List<int> { 1, 2, 3, 4, 5 };
+        Console.WriteLine("Lista di numeri:");
+        foreach (int numero in numeri)
+        {
+            Console.WriteLine(numero);
+        }
+
+        // Dizionario
+        Dictionary<string, string> capitalePaese = new Dictionary<string, string>
+        {
+            { "Italia", "Roma" },
+            { "Francia", "Parigi" },
+            { "Spagna", "Madrid" }
+        };
+        Console.WriteLine("\nDizionari di capitali:");
+        foreach (KeyValuePair<string, string> kvp in capitalePaese)
+        {
+            Console.WriteLine("Paese: " + kvp.Key + ", Capitale: " + kvp.Value);
+        }
+
+        // Coda
+        Queue<string> codaPersone = new Queue<string>();
+        codaPersone.Enqueue("Alice");
+        codaPersone.Enqueue("Bob");
+        codaPersone.Enqueue("Charlie");
+        Console.WriteLine("\nCoda di persone:");
+        while (codaPersone.Count > 0)
+        {
+            Console.WriteLine(codaPersone.Dequeue());
+        }
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
