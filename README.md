@@ -1011,7 +1011,221 @@ class Program
 }
 ```
 
+________________________________________________________________________________
 
+
+# Metodi
+
+
+In C#, i metodi sono blocchi di codice che eseguono un'attività specifica e possono essere richiamati da altre parti del programma. La dichiarazione e la chiamata di metodi sono fondamentali per la scrittura di codice modulare e riutilizzabile. Ecco una guida su come dichiarare, definire e chiamare metodi, inclusi i diversi modi di passare i parametri.
+
+### Dichiarazione e Definizione di Metodi
+
+Un metodo è dichiarato con un tipo di ritorno, un nome e una lista di parametri opzionali. La definizione del metodo include il corpo del metodo, che è racchiuso tra parentesi graffe `{}`.
+
+#### Sintassi di Base
+
+```csharp
+[modificatore di accesso] [tipo di ritorno] [nome del metodo]([lista di parametri])
+{
+    // Corpo del metodo
+}
+```
+
+- **Modificatore di accesso**: Specifica la visibilità del metodo (ad esempio, `public`, `private`, `protected`, `internal`).
+- **Tipo di ritorno**: Specifica il tipo di dato che il metodo restituisce. Se il metodo non restituisce alcun valore, si usa `void`.
+- **Nome del metodo**: Il nome del metodo, che deve essere un identificatore valido.
+- **Lista di parametri**: Una lista opzionale di parametri che il metodo accetta, racchiusa tra parentesi tonde.
+
+#### Esempio di Metodo Semplice
+
+```csharp
+using System;
+
+class Program
+{
+    // Metodo che non restituisce un valore e non accetta parametri
+    public static void Saluta()
+    {
+        Console.WriteLine("Ciao, mondo!");
+    }
+
+    // Metodo che restituisce un valore e accetta parametri
+    public static int Somma(int a, int b)
+    {
+        return a + b;
+    }
+
+    static void Main()
+    {
+        // Chiamata del metodo Saluta
+        Saluta();
+
+        // Chiamata del metodo Somma
+        int risultato = Somma(5, 3);
+        Console.WriteLine("Il risultato della somma è: " + risultato);
+    }
+}
+```
+
+### Passaggio di Parametri
+
+Ci sono diversi modi per passare parametri ai metodi in C#:
+
+1. **Passaggio per Valore**
+2. **Passaggio per Riferimento**
+3. **Parametri Opzionali**
+4. **Parametri Nomeati**
+
+#### Passaggio per Valore
+
+Di default, i parametri in C# sono passati per valore, il che significa che viene passata una copia del valore del parametro.
+
+```csharp
+using System;
+
+class Program
+{
+    public static void Incrementa(int numero)
+    {
+        numero++;
+        Console.WriteLine("Dentro il metodo: " + numero); // 11
+    }
+
+    static void Main()
+    {
+        int valore = 10;
+        Incrementa(valore);
+        Console.WriteLine("Fuori dal metodo: " + valore); // 10
+    }
+}
+```
+
+#### Passaggio per Riferimento
+
+Usando le parole chiave `ref` o `out`, è possibile passare parametri per riferimento, permettendo al metodo chiamato di modificare il valore della variabile chiamante.
+
+```csharp
+using System;
+
+class Program
+{
+    public static void Incrementa(ref int numero)
+    {
+        numero++;
+        Console.WriteLine("Dentro il metodo: " + numero); // 11
+    }
+
+    static void Main()
+    {
+        int valore = 10;
+        Incrementa(ref valore);
+        Console.WriteLine("Fuori dal metodo: " + valore); // 11
+    }
+}
+```
+
+#### Parametri Opzionali
+
+I parametri opzionali consentono di specificare valori predefiniti per alcuni parametri. Se il chiamante non fornisce un valore, viene utilizzato il valore predefinito.
+
+```csharp
+using System;
+
+class Program
+{
+    public static void StampaMessaggio(string messaggio = "Messaggio di default")
+    {
+        Console.WriteLine(messaggio);
+    }
+
+    static void Main()
+    {
+        StampaMessaggio(); // Stampa "Messaggio di default"
+        StampaMessaggio("Ciao!"); // Stampa "Ciao!"
+    }
+}
+```
+
+#### Parametri Nomeati
+
+I parametri nomeati consentono di passare gli argomenti ai metodi specificando il nome del parametro, rendendo il codice più leggibile e permettendo di cambiare l'ordine degli argomenti.
+
+```csharp
+using System;
+
+class Program
+{
+    public static void StampaInformazioni(string nome, int età)
+    {
+        Console.WriteLine("Nome: " + nome + ", Età: " + età);
+    }
+
+    static void Main()
+    {
+        StampaInformazioni(età: 25, nome: "Alice"); // Stampa "Nome: Alice, Età: 25"
+    }
+}
+```
+
+### Esempio Completo
+
+Ecco un esempio completo che mostra l'uso di diversi tipi di passaggio di parametri e metodi:
+
+```csharp
+using System;
+
+class Program
+{
+    // Metodo con passaggio per valore
+    public static void PassaggioPerValore(int numero)
+    {
+        numero += 10;
+        Console.WriteLine("Dentro PassaggioPerValore: " + numero);
+    }
+
+    // Metodo con passaggio per riferimento
+    public static void PassaggioPerRiferimento(ref int numero)
+    {
+        numero += 10;
+        Console.WriteLine("Dentro PassaggioPerRiferimento: " + numero);
+    }
+
+    // Metodo con parametro opzionale
+    public static void Saluta(string messaggio = "Ciao, mondo!")
+    {
+        Console.WriteLine(messaggio);
+    }
+
+    // Metodo con parametri nomeati
+    public static void Informazioni(string nome, int età)
+    {
+        Console.WriteLine("Nome: " + nome + ", Età: " + età);
+    }
+
+    static void Main()
+    {
+        int valore = 5;
+
+        // Chiamata di metodo con passaggio per valore
+        PassaggioPerValore(valore);
+        Console.WriteLine("Fuori da PassaggioPerValore: " + valore);
+
+        // Chiamata di metodo con passaggio per riferimento
+        PassaggioPerRiferimento(ref valore);
+        Console.WriteLine("Fuori da PassaggioPerRiferimento: " + valore);
+
+        // Chiamata di metodo con parametro opzionale
+        Saluta();
+        Saluta("Buongiorno!");
+
+        // Chiamata di metodo con parametri nomeati
+        Informazioni(nome: "Alice", età: 30);
+    }
+}
+```
+
+Questo esempio mostra come dichiarare, definire e chiamare metodi in C#, nonché come utilizzare diversi tipi di parametri per rendere i metodi più flessibili e facili da usare.
 
 
 
