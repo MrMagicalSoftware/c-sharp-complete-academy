@@ -680,6 +680,149 @@ class Program
 ```
 
 
+_________________________________________________________________
+
+# Strutture iterative c#
+
+
+In C#, gli operatori iterativi, o strutture di controllo iterative, consentono di eseguire un blocco di codice ripetutamente fino a quando una condizione specificata è vera. Le principali strutture iterative in C# sono `for`, `foreach`, `while` e `do-while`. Ecco una panoramica di ciascuna di queste strutture con esempi di codice.
+
+### Ciclo `for`
+
+Il ciclo `for` viene utilizzato quando si conosce in anticipo il numero di iterazioni da eseguire. È costituito da tre parti: inizializzazione, condizione e incremento.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Ciclo for per stampare i numeri da 0 a 9
+        for (int i = 0; i < 10; i++)
+        {
+            Console.WriteLine(i);
+        }
+    }
+}
+```
+
+### Ciclo `foreach`
+
+Il ciclo `foreach` viene utilizzato per iterare attraverso tutti gli elementi di una collezione (come un array o una lista). È particolarmente utile quando si desidera accedere a ciascun elemento senza dover gestire l'indice di iterazione.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] numeri = { 1, 2, 3, 4, 5 };
+
+        // Ciclo foreach per stampare ciascun numero nell'array
+        foreach (int numero in numeri)
+        {
+            Console.WriteLine(numero);
+        }
+    }
+}
+```
+
+### Ciclo `while`
+
+Il ciclo `while` esegue un blocco di codice ripetutamente finché una condizione specificata rimane vera. La condizione viene valutata all'inizio di ogni iterazione.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int i = 0;
+
+        // Ciclo while per stampare i numeri da 0 a 9
+        while (i < 10)
+        {
+            Console.WriteLine(i);
+            i++;
+        }
+    }
+}
+```
+
+### Ciclo `do-while`
+
+Il ciclo `do-while` è simile al ciclo `while`, ma la condizione viene valutata alla fine di ogni iterazione. Ciò significa che il blocco di codice verrà eseguito almeno una volta, indipendentemente dalla condizione.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int i = 0;
+
+        // Ciclo do-while per stampare i numeri da 0 a 9
+        do
+        {
+            Console.WriteLine(i);
+            i++;
+        }
+        while (i < 10);
+    }
+}
+```
+
+### Esempio Completo
+
+Ecco un esempio completo che utilizza tutte e quattro le strutture iterative:
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Esempio con ciclo for
+        Console.WriteLine("Ciclo for:");
+        for (int i = 0; i < 5; i++)
+        {
+            Console.WriteLine("Iterazione " + i);
+        }
+
+        // Esempio con ciclo foreach
+        Console.WriteLine("Ciclo foreach:");
+        string[] nomi = { "Alice", "Bob", "Charlie" };
+        foreach (string nome in nomi)
+        {
+            Console.WriteLine("Ciao, " + nome + "!");
+        }
+
+        // Esempio con ciclo while
+        Console.WriteLine("Ciclo while:");
+        int j = 0;
+        while (j < 3)
+        {
+            Console.WriteLine("Iterazione " + j);
+            j++;
+        }
+
+        // Esempio con ciclo do-while
+        Console.WriteLine("Ciclo do-while:");
+        int k = 0;
+        do
+        {
+            Console.WriteLine("Iterazione " + k);
+            k++;
+        }
+        while (k < 3);
+    }
+}
+```
 
 
 
