@@ -310,6 +310,218 @@ class Program
 }
 ```
 
+___________________________________________________
+
+
+
+In C#, le strutture di selezione consentono di eseguire diverse operazioni in base a condizioni specifiche. Le principali strutture di selezione includono `if`, `else if`, `else`, `switch` e l'operatore ternario. Ecco una panoramica di ciascuna di queste strutture con esempi di codice.
+
+### Struttura `if`
+
+La struttura `if` valuta una condizione booleana e, se la condizione è vera, esegue un blocco di codice.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int numero = 10;
+
+        if (numero > 0)
+        {
+            Console.WriteLine("Il numero è positivo.");
+        }
+    }
+}
+```
+
+### Struttura `if-else`
+
+La struttura `if-else` consente di eseguire un blocco di codice se la condizione è vera e un altro blocco se la condizione è falsa.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int numero = -5;
+
+        if (numero > 0)
+        {
+            Console.WriteLine("Il numero è positivo.");
+        }
+        else
+        {
+            Console.WriteLine("Il numero è negativo o zero.");
+        }
+    }
+}
+```
+
+### Struttura `if-else if-else`
+
+La struttura `if-else if-else` consente di valutare più condizioni in sequenza.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int numero = 0;
+
+        if (numero > 0)
+        {
+            Console.WriteLine("Il numero è positivo.");
+        }
+        else if (numero < 0)
+        {
+            Console.WriteLine("Il numero è negativo.");
+        }
+        else
+        {
+            Console.WriteLine("Il numero è zero.");
+        }
+    }
+}
+```
+
+### Struttura `switch`
+
+La struttura `switch` è utile quando si devono confrontare un valore con diverse costanti. È particolarmente utile per la gestione di enumerazioni o valori discreti.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int giornoDellaSettimana = 3;
+
+        switch (giornoDellaSettimana)
+        {
+            case 1:
+                Console.WriteLine("Lunedì");
+                break;
+            case 2:
+                Console.WriteLine("Martedì");
+                break;
+            case 3:
+                Console.WriteLine("Mercoledì");
+                break;
+            case 4:
+                Console.WriteLine("Giovedì");
+                break;
+            case 5:
+                Console.WriteLine("Venerdì");
+                break;
+            case 6:
+                Console.WriteLine("Sabato");
+                break;
+            case 7:
+                Console.WriteLine("Domenica");
+                break;
+            default:
+                Console.WriteLine("Giorno non valido.");
+                break;
+        }
+    }
+}
+```
+
+### Operatore Ternario
+
+L'operatore ternario (`? :`) consente di scrivere espressioni condizionali in una singola riga. È un'alternativa compatta alla struttura `if-else` per assegnazioni semplici.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int numero = 5;
+        string risultato = numero > 0 ? "Positivo" : "Non positivo";
+        Console.WriteLine(risultato);
+    }
+}
+```
+
+### Esempio Completo
+
+Ecco un esempio completo che utilizza diverse strutture di selezione:
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Inserisci un numero intero:");
+        string input = Console.ReadLine();
+        int numero;
+        
+        if (int.TryParse(input, out numero))
+        {
+            // Uso di if-else if-else
+            if (numero > 0)
+            {
+                Console.WriteLine("Il numero è positivo.");
+            }
+            else if (numero < 0)
+            {
+                Console.WriteLine("Il numero è negativo.");
+            }
+            else
+            {
+                Console.WriteLine("Il numero è zero.");
+            }
+
+            // Uso di switch
+            switch (numero)
+            {
+                case 1:
+                    Console.WriteLine("Il numero è uno.");
+                    break;
+                case 2:
+                    Console.WriteLine("Il numero è due.");
+                    break;
+                default:
+                    Console.WriteLine("Il numero non è né uno né due.");
+                    break;
+            }
+
+            // Uso dell'operatore ternario
+            string parita = numero % 2 == 0 ? "pari" : "dispari";
+            Console.WriteLine("Il numero è " + parita + ".");
+        }
+        else
+        {
+            Console.WriteLine("Errore: input non valido.");
+        }
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
