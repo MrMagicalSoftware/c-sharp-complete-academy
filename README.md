@@ -1427,6 +1427,254 @@ In questo esempio, il programma:
 5. Utilizza un blocco `finally` per eseguire il codice di pulizia, indipendentemente dal fatto che si sia verificata un'eccezione.
 
 
+_______________________________________________________
+
+
+# LEGGERE E SCRIVERE SU FILE 
+
+
+In C#, è possibile leggere e scrivere su file utilizzando i flussi (streams). La classe `System.IO` fornisce vari tipi di flussi e classi helper per lavorare con i file. Ecco come accedere al file system e leggere/scrivere su file utilizzando i flussi.
+
+### Lettura da File
+
+Per leggere da un file, si può utilizzare la classe `StreamReader`.
+
+#### Esempio di Lettura da File
+
+```csharp
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string percorsoFile = "testo.txt";
+
+        try
+        {
+            using (StreamReader sr = new StreamReader(percorsoFile))
+            {
+                string linea;
+                while ((linea = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(linea);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Errore durante la lettura del file:");
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+```
+
+### Scrittura su File
+
+Per scrivere su un file, si può utilizzare la classe `StreamWriter`.
+
+#### Esempio di Scrittura su File
+
+```csharp
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string percorsoFile = "testo.txt";
+
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(percorsoFile))
+            {
+                sw.WriteLine("Ciao, mondo!");
+                sw.WriteLine("Scrittura su file in C#.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Errore durante la scrittura del file:");
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+```
+
+### Esempio Completo: Lettura e Scrittura
+
+Ecco un esempio che mostra come combinare lettura e scrittura su file:
+
+```csharp
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string percorsoFile = "testo.txt";
+
+        // Scrittura su file
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(percorsoFile))
+            {
+                sw.WriteLine("Ciao, mondo!");
+                sw.WriteLine("Scrittura su file in C#.");
+            }
+            Console.WriteLine("Scrittura completata.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Errore durante la scrittura del file:");
+            Console.WriteLine(ex.Message);
+        }
+
+        // Lettura da file
+        try
+        {
+            using (StreamReader sr = new StreamReader(percorsoFile))
+            {
+                string linea;
+                while ((linea = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(linea);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Errore durante la lettura del file:");
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+```
+
+### Lettura e Scrittura di File Binari
+
+Per file binari, si utilizzano `FileStream`, `BinaryReader`, e `BinaryWriter`.
+
+#### Scrittura di File Binari
+
+```csharp
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string percorsoFile = "dati.bin";
+
+        try
+        {
+            using (FileStream fs = new FileStream(percorsoFile, FileMode.Create))
+            using (BinaryWriter bw = new BinaryWriter(fs))
+            {
+                bw.Write(123);     // Scrive un intero
+                bw.Write("Ciao!"); // Scrive una stringa
+                bw.Write(4.5);     // Scrive un double
+            }
+            Console.WriteLine("Scrittura binaria completata.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Errore durante la scrittura del file binario:");
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+```
+
+#### Lettura di File Binari
+
+```csharp
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string percorsoFile = "dati.bin";
+
+        try
+        {
+            using (FileStream fs = new FileStream(percorsoFile, FileMode.Open))
+            using (BinaryReader br = new BinaryReader(fs))
+            {
+                int numero = br.ReadInt32();
+                string testo = br.ReadString();
+                double valore = br.ReadDouble();
+
+                Console.WriteLine($"Intero: {numero}, Stringa: {testo}, Double: {valore}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Errore durante la lettura del file binario:");
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+```
+
+### Esempio Completo: File Binari
+
+```csharp
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string percorsoFile = "dati.bin";
+
+        // Scrittura su file binario
+        try
+        {
+            using (FileStream fs = new FileStream(percorsoFile, FileMode.Create))
+            using (BinaryWriter bw = new BinaryWriter(fs))
+            {
+                bw.Write(123);     // Scrive un intero
+                bw.Write("Ciao!"); // Scrive una stringa
+                bw.Write(4.5);     // Scrive un double
+            }
+            Console.WriteLine("Scrittura binaria completata.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Errore durante la scrittura del file binario:");
+            Console.WriteLine(ex.Message);
+        }
+
+        // Lettura da file binario
+        try
+        {
+            using (FileStream fs = new FileStream(percorsoFile, FileMode.Open))
+            using (BinaryReader br = new BinaryReader(fs))
+            {
+                int numero = br.ReadInt32();
+                string testo = br.ReadString();
+                double valore = br.ReadDouble();
+
+                Console.WriteLine($"Intero: {numero}, Stringa: {testo}, Double: {valore}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Errore durante la lettura del file binario:");
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+```
 
 
 
