@@ -313,6 +313,175 @@ class Program
 ___________________________________________________
 
 
+In C#, gli operatori matematici sono utilizzati per eseguire operazioni aritmetiche su variabili e valori. Ecco un elenco degli operatori matematici principali con esempi di utilizzo:
+
+### Operatori Aritmetici di Base
+
+1. **Addizione (`+`)**
+   - Somma due operandi.
+
+   ```csharp
+   int a = 10;
+   int b = 5;
+   int somma = a + b; // somma = 15
+   ```
+
+2. **Sottrazione (`-`)**
+   - Sottrae il secondo operando dal primo.
+
+   ```csharp
+   int a = 10;
+   int b = 5;
+   int differenza = a - b; // differenza = 5
+   ```
+
+3. **Moltiplicazione (`*`)**
+   - Moltiplica due operandi.
+
+   ```csharp
+   int a = 10;
+   int b = 5;
+   int prodotto = a * b; // prodotto = 50
+   ```
+
+4. **Divisione (`/`)**
+   - Divide il primo operando per il secondo.
+
+   ```csharp
+   int a = 10;
+   int b = 5;
+   int quoziente = a / b; // quoziente = 2
+   ```
+
+   > **Nota:** Se si divide un intero per un altro intero, il risultato sarà un intero (la parte decimale verrà troncata). Per ottenere un risultato decimale, almeno uno degli operandi deve essere un numero a virgola mobile.
+
+   ```csharp
+   double a = 10;
+   double b = 3;
+   double quoziente = a / b; // quoziente ≈ 3.3333
+   ```
+
+5. **Modulo (`%`)**
+   - Restituisce il resto della divisione del primo operando per il secondo.
+
+   ```csharp
+   int a = 10;
+   int b = 3;
+   int resto = a % b; // resto = 1
+   ```
+
+### Operatori di Incremento e Decremento
+
+1. **Incremento (`++`)**
+   - Incrementa l'operando di 1.
+
+   ```csharp
+   int a = 10;
+   a++; // a = 11
+   ```
+
+2. **Decremento (`--`)**
+   - Decrementa l'operando di 1.
+
+   ```csharp
+   int a = 10;
+   a--; // a = 9
+   ```
+
+### Operatori di Assegnazione Compatti
+
+1. **Assegnazione Additiva (`+=`)**
+   - Aggiunge il valore dell'operando di destra all'operando di sinistra e assegna il risultato all'operando di sinistra.
+
+   ```csharp
+   int a = 10;
+   a += 5; // a = 15
+   ```
+
+2. **Assegnazione Sottrattiva (`-=`)**
+   - Sottrae il valore dell'operando di destra dall'operando di sinistra e assegna il risultato all'operando di sinistra.
+
+   ```csharp
+   int a = 10;
+   a -= 5; // a = 5
+   ```
+
+3. **Assegnazione Moltiplicativa (`*=`)**
+   - Moltiplica l'operando di sinistra per il valore dell'operando di destra e assegna il risultato all'operando di sinistra.
+
+   ```csharp
+   int a = 10;
+   a *= 2; // a = 20
+   ```
+
+4. **Assegnazione Divisiva (`/=`)**
+   - Divide l'operando di sinistra per il valore dell'operando di destra e assegna il risultato all'operando di sinistra.
+
+   ```csharp
+   int a = 10;
+   a /= 2; // a = 5
+   ```
+
+5. **Assegnazione Modulativa (`%=`)**
+   - Calcola il modulo dell'operando di sinistra con il valore dell'operando di destra e assegna il risultato all'operando di sinistra.
+
+   ```csharp
+   int a = 10;
+   a %= 3; // a = 1
+   ```
+
+### Esempio Completo
+
+Ecco un esempio completo che utilizza vari operatori matematici:
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int x = 10;
+        int y = 3;
+
+        // Operatori aritmetici di base
+        Console.WriteLine("Addizione: " + (x + y));     // 13
+        Console.WriteLine("Sottrazione: " + (x - y));  // 7
+        Console.WriteLine("Moltiplicazione: " + (x * y)); // 30
+        Console.WriteLine("Divisione: " + (x / y));    // 3 (divisione intera)
+        Console.WriteLine("Modulo: " + (x % y));       // 1
+
+        // Operatori di incremento e decremento
+        x++;
+        Console.WriteLine("Incremento: " + x);         // 11
+        x--;
+        Console.WriteLine("Decremento: " + x);         // 10
+
+        // Operatori di assegnazione compatti
+        x += 5;
+        Console.WriteLine("Assegnazione Additiva: " + x); // 15
+        x -= 2;
+        Console.WriteLine("Assegnazione Sottrattiva: " + x); // 13
+        x *= 2;
+        Console.WriteLine("Assegnazione Moltiplicativa: " + x); // 26
+        x /= 2;
+        Console.WriteLine("Assegnazione Divisiva: " + x); // 13
+        x %= 3;
+        Console.WriteLine("Assegnazione Modulativa: " + x); // 1
+    }
+}
+```
+
+Questi esempi mostrano come utilizzare gli operatori matematici in C# per eseguire operazioni aritmetiche di base e modificare i valori delle variabili.
+
+
+
+
+
+
+
+____________________________________________________
+
 
 In C#, le strutture di selezione consentono di eseguire diverse operazioni in base a condizioni specifiche. Le principali strutture di selezione includono `if`, `else if`, `else`, `switch` e l'operatore ternario. Ecco una panoramica di ciascuna di queste strutture con esempi di codice.
 
