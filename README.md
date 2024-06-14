@@ -203,6 +203,118 @@ public void MyMetodo()
 ```
 
 
+_______________________
+
+
+
+
+### Leggere una stringa
+
+Il metodo più semplice per leggere l'input dell'utente è `Console.ReadLine()`, che legge una riga completa di testo inserita dall'utente.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Inserisci il tuo nome:");
+        string nome = Console.ReadLine();
+        Console.WriteLine("Ciao, " + nome + "!");
+    }
+}
+```
+
+### Leggere un intero
+
+Per leggere un numero intero dall'utente, è necessario convertire la stringa letta con `Console.ReadLine()` in un intero usando `int.Parse()` o `int.TryParse()` per una gestione migliore degli errori.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Inserisci un numero intero:");
+        string input = Console.ReadLine();
+        
+        // Metodo 1: int.Parse() (potrebbe generare un'eccezione se l'input non è un numero valido)
+        int numero;
+        try
+        {
+            numero = int.Parse(input);
+            Console.WriteLine("Hai inserito: " + numero);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Errore: input non valido.");
+        }
+
+        // Metodo 2: int.TryParse() (gestisce l'errore senza eccezioni)
+        if (int.TryParse(input, out numero))
+        {
+            Console.WriteLine("Hai inserito: " + numero);
+        }
+        else
+        {
+            Console.WriteLine("Errore: input non valido.");
+        }
+    }
+}
+```
+
+### Leggere un numero decimale
+
+Analogamente, per leggere un numero decimale (ad esempio, `double` o `float`), è possibile utilizzare `double.Parse()` o `double.TryParse()`.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Inserisci un numero decimale:");
+        string input = Console.ReadLine();
+        
+        double numero;
+        if (double.TryParse(input, out numero))
+        {
+            Console.WriteLine("Hai inserito: " + numero);
+        }
+        else
+        {
+            Console.WriteLine("Errore: input non valido.");
+        }
+    }
+}
+```
+
+### Leggere un carattere
+
+Per leggere un singolo carattere, si può utilizzare `Console.ReadKey()`.
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Premi un tasto:");
+        ConsoleKeyInfo tasto = Console.ReadKey();
+        Console.WriteLine("\nHai premuto: " + tasto.KeyChar);
+    }
+}
+```
+
+
+
+
+
+
 
 
 
