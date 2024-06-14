@@ -1225,7 +1225,206 @@ class Program
 }
 ```
 
-Questo esempio mostra come dichiarare, definire e chiamare metodi in C#, nonché come utilizzare diversi tipi di parametri per rendere i metodi più flessibili e facili da usare.
+______________________________________
+
+# GESTIONE DELLE EXCEPTION
+
+La gestione delle eccezioni in C# consente di catturare e gestire errori in modo strutturato e robusto. Le eccezioni sono eventi che interrompono il normale flusso di esecuzione di un programma. Utilizzando la gestione delle eccezioni, è possibile intercettare questi eventi e prendere azioni appropriate, come la registrazione degli errori, il rilascio delle risorse o la presentazione di messaggi di errore significativi all'utente.
+
+### Gestione delle Eccezioni
+
+In C#, la gestione delle eccezioni viene realizzata utilizzando i blocchi `try`, `catch`, `finally` e `throw`.
+
+#### Blocco `try`
+
+Il blocco `try` contiene il codice che potrebbe generare un'eccezione.
+
+#### Blocco `catch`
+
+Il blocco `catch` contiene il codice che viene eseguito se si verifica un'eccezione. Può catturare specifici tipi di eccezioni.
+
+#### Blocco `finally`
+
+Il blocco `finally` contiene il codice che viene eseguito indipendentemente dal fatto che un'eccezione sia stata sollevata o meno. Viene utilizzato per rilasciare risorse o eseguire operazioni di pulizia.
+
+#### Parola chiave `throw`
+
+La parola chiave `throw` viene utilizzata per sollevare un'eccezione.
+
+### Esempio di Gestione delle Eccezioni
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+            // Codice che potrebbe sollevare un'eccezione
+            int[] numeri = { 1, 2, 3 };
+            Console.WriteLine(numeri[5]); // Questo genera un'eccezione IndexOutOfRangeException
+        }
+        catch (IndexOutOfRangeException ex)
+        {
+            // Gestione specifica dell'eccezione IndexOutOfRangeException
+            Console.WriteLine("Errore: Indice fuori dai limiti dell'array.");
+            Console.WriteLine("Dettagli: " + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            // Gestione generica delle eccezioni
+            Console.WriteLine("Si è verificato un errore.");
+            Console.WriteLine("Dettagli: " + ex.Message);
+        }
+        finally
+        {
+            // Codice di pulizia
+            Console.WriteLine("Blocco finally eseguito.");
+        }
+    }
+}
+```
+
+### Sollevare Eccezioni
+
+In C#, è possibile sollevare eccezioni personalizzate utilizzando la parola chiave `throw` insieme a un'istanza della classe `Exception` (o di una delle sue sottoclassi).
+
+#### Esempio di Sollevamento di Eccezioni
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+            ValidaEtà(-5);
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            Console.WriteLine("Errore: " + ex.Message);
+        }
+    }
+
+    static void ValidaEtà(int età)
+    {
+        if (età < 0 || età > 120)
+        {
+            throw new ArgumentOutOfRangeException(nameof(età), "L'età deve essere compresa tra 0 e 120.");
+        }
+        Console.WriteLine("Età valida: " + età);
+    }
+}
+```
+
+### Creare Eccezioni Personalizzate
+
+È possibile creare eccezioni personalizzate ereditando dalla classe `Exception`.
+
+#### Esempio di Eccezione Personalizzata
+
+```csharp
+using System;
+
+class EtàNonValidaException : Exception
+{
+    public EtàNonValidaException() { }
+
+    public EtàNonValidaException(string message) : base(message) { }
+
+    public EtàNonValidaException(string message, Exception inner) : base(message, inner) { }
+}
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+            ValidaEtà(-5);
+        }
+        catch (EtàNonValidaException ex)
+        {
+            Console.WriteLine("Errore: " + ex.Message);
+        }
+    }
+
+    static void ValidaEtà(int età)
+    {
+        if (età < 0 || età > 120)
+        {
+            throw new EtàNonValidaException("L'età deve essere compresa tra 0 e 120.");
+        }
+        Console.WriteLine("Età valida: " + età);
+    }
+}
+```
+
+### Esempio Completo di Gestione delle Eccezioni
+
+Ecco un esempio che combina diversi aspetti della gestione delle eccezioni in un programma:
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        try
+        {
+            Console.WriteLine("Inserisci un numero:");
+            string input = Console.ReadLine();
+            int numero = int.Parse(input);
+
+            ValidaNumero(numero);
+        }
+        catch (FormatException ex)
+        {
+            Console.WriteLine("Errore: Il formato del numero non è valido.");
+            Console.WriteLine("Dettagli: " + ex.Message);
+        }
+        catch (OverflowException ex)
+        {
+            Console.WriteLine("Errore: Il numero è troppo grande o troppo piccolo.");
+            Console.WriteLine("Dettagli: " + ex.Message);
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            Console.WriteLine("Errore: " + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Si è verificato un errore inatteso.");
+            Console.WriteLine("Dettagli: " + ex.Message);
+        }
+        finally
+        {
+            Console.WriteLine("Operazione completata.");
+        }
+    }
+
+    static void ValidaNumero(int numero)
+    {
+        if (numero < 0 || numero > 100)
+        {
+            throw new ArgumentOutOfRangeException(nameof(numero), "Il numero deve essere compreso tra 0 e 100.");
+        }
+        Console.WriteLine("Numero valido: " + numero);
+    }
+}
+```
+
+In questo esempio, il programma:
+1. Chiede all'utente di inserire un numero.
+2. Converte l'input in un intero.
+3. Valida il numero per assicurarsi che sia compreso tra 0 e 100.
+4. Gestisce diverse eccezioni che potrebbero verificarsi durante la conversione e la validazione del numero.
+5. Utilizza un blocco `finally` per eseguire il codice di pulizia, indipendentemente dal fatto che si sia verificata un'eccezione.
 
 
 
