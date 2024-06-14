@@ -108,6 +108,7 @@ ________________________________________________________________________________
 Editor Online : https://www.programiz.com/csharp-programming/online-compiler/
 
 
+# TI DI DATO 
 
 In C#, i tipi di dato possono essere suddivisi in due categorie principali: tipi di valore (value types) e tipi di riferimento (reference types). Ecco una panoramica di entrambi:
 
