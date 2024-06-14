@@ -1676,9 +1676,209 @@ class Program
 }
 ```
 
+_______________________________________________________________________
+
+# Enumerazioni 
 
 
+In C#, le enumerazioni (o enum) sono un tipo di dato che consente di definire un insieme di costanti con nomi specifici. Le enumerazioni migliorano la leggibilità del codice, permettendo di utilizzare nomi simbolici al posto di valori numerici.
 
+### Dichiarazione di un Enum
+
+Un enum è dichiarato utilizzando la parola chiave `enum`, seguita dal nome dell'enumerazione e dall'elenco delle costanti racchiuso tra parentesi graffe.
+
+#### Sintassi di Base
+
+```csharp
+enum NomeEnum
+{
+    Costante1,
+    Costante2,
+    Costante3
+}
+```
+
+#### Esempio
+
+```csharp
+enum GiornoDellaSettimana
+{
+    Lunedì,
+    Martedì,
+    Mercoledì,
+    Giovedì,
+    Venerdì,
+    Sabato,
+    Domenica
+}
+```
+
+### Utilizzo di un Enum
+
+Una volta dichiarato un enum, puoi utilizzarlo per definire variabili del tipo dell'enum e assegnare loro i valori delle costanti definite nell'enumerazione.
+
+#### Esempio
+
+```csharp
+using System;
+
+class Program
+{
+    enum GiornoDellaSettimana
+    {
+        Lunedì,
+        Martedì,
+        Mercoledì,
+        Giovedì,
+        Venerdì,
+        Sabato,
+        Domenica
+    }
+
+    static void Main()
+    {
+        GiornoDellaSettimana oggi = GiornoDellaSettimana.Venerdì;
+        Console.WriteLine("Oggi è: " + oggi);
+        
+        // Confronto di enum
+        if (oggi == GiornoDellaSettimana.Venerdì)
+        {
+            Console.WriteLine("Buon fine settimana!");
+        }
+    }
+}
+```
+
+### Specificare i Valori delle Costanti
+
+Per default, le costanti di un enum sono di tipo `int` e iniziano da 0. È possibile specificare valori diversi per le costanti.
+
+#### Esempio
+
+```csharp
+enum LivelloDiLog
+{
+    Informazione = 1,
+    Avviso = 2,
+    Errore = 3,
+    Critico = 4
+}
+```
+
+### Conversione tra Enum e Valori Interi
+
+Puoi convertire un enum in un valore intero e viceversa.
+
+#### Esempio
+
+```csharp
+using System;
+
+class Program
+{
+    enum LivelloDiLog
+    {
+        Informazione = 1,
+        Avviso = 2,
+        Errore = 3,
+        Critico = 4
+    }
+
+    static void Main()
+    {
+        LivelloDiLog livello = LivelloDiLog.Errore;
+        int valoreIntero = (int)livello;
+        Console.WriteLine("Il livello di log 'Errore' ha il valore intero: " + valoreIntero);
+
+        LivelloDiLog nuovoLivello = (LivelloDiLog)4;
+        Console.WriteLine("Il valore intero 4 corrisponde al livello di log: " + nuovoLivello);
+    }
+}
+```
+
+### Enumerazioni con Flag
+
+È possibile creare un enum che può rappresentare una combinazione di valori utilizzando l'attributo `[Flags]`.
+
+#### Esempio
+
+```csharp
+using System;
+
+[Flags]
+enum GiorniLavorativi
+{
+    Nessuno = 0,
+    Lunedì = 1,
+    Martedì = 2,
+    Mercoledì = 4,
+    Giovedì = 8,
+    Venerdì = 16,
+    Tutti = Lunedì | Martedì | Mercoledì | Giovedì | Venerdì
+}
+
+class Program
+{
+    static void Main()
+    {
+        GiorniLavorativi giorni = GiorniLavorativi.Lunedì | GiorniLavorativi.Mercoledì | GiorniLavorativi.Venerdì;
+        Console.WriteLine("Giorni lavorativi selezionati: " + giorni);
+
+        // Verifica se un giorno è incluso
+        if ((giorni & GiorniLavorativi.Mercoledì) == GiorniLavorativi.Mercoledì)
+        {
+            Console.WriteLine("Mercoledì è un giorno lavorativo selezionato.");
+        }
+    }
+}
+```
+
+### Esempio Completo
+
+Ecco un esempio completo che mostra la creazione e l'utilizzo di un enum in un'applicazione pratica.
+
+```csharp
+using System;
+
+class Program
+{
+    enum StatoOrdine
+    {
+        InAttesa = 1,
+        Elaborato,
+        Spedito,
+        Consegnato,
+        Annullato
+    }
+
+    static void Main()
+    {
+        StatoOrdine statoCorrente = StatoOrdine.InAttesa;
+
+        Console.WriteLine("Stato corrente dell'ordine: " + statoCorrente);
+
+        // Simulazione di avanzamento dello stato dell'ordine
+        statoCorrente = StatoOrdine.Elaborato;
+        Console.WriteLine("Stato aggiornato dell'ordine: " + statoCorrente);
+
+        statoCorrente = StatoOrdine.Spedito;
+        Console.WriteLine("Stato aggiornato dell'ordine: " + statoCorrente);
+
+        statoCorrente = StatoOrdine.Consegnato;
+        Console.WriteLine("Stato aggiornato dell'ordine: " + statoCorrente);
+
+        // Conversione da enum a int
+        int valoreIntero = (int)statoCorrente;
+        Console.WriteLine("Il valore intero dello stato 'Consegnato' è: " + valoreIntero);
+
+        // Conversione da int a enum
+        StatoOrdine statoDaValoreIntero = (StatoOrdine)4;
+        Console.WriteLine("Il valore intero 4 corrisponde allo stato: " + statoDaValoreIntero);
+    }
+}
+```
+
+In questo esempio, l'enumerazione `StatoOrdine` rappresenta i diversi stati di un ordine. Il programma simula il cambiamento dello stato dell'ordine e mostra come convertire tra valori interi ed enum.
 
 
 
