@@ -2101,9 +2101,171 @@ Nel metodo `Main`, viene creata un'istanza della classe `Calcolatrice` e vengono
 
 _________________________________________________
 
+
+L'ereditarietà è uno dei pilastri della programmazione orientata agli oggetti e consente a una classe di derivare da un'altra classe, ereditando i suoi membri (metodi, proprietà, campi). Questo permette la riusabilità del codice e la creazione di gerarchie di classi.
+
+### Esempio Completo di Ereditarietà in C#
+
+Immaginiamo di avere una classe base `Animale` e due classi derivate `Cane` e `Gatto`.
+
+#### Classe Base `Animale`
+
+```csharp
+public class Animale
+{
+    // Campo privato
+    private string nome;
+
+    // Proprietà pubblica
+    public string Nome
+    {
+        get { return nome; }
+        set { nome = value; }
+    }
+
+    // Costruttore
+    public Animale(string nome)
+    {
+        this.nome = nome;
+    }
+
+    // Metodo virtuale
+    public virtual void FaiVerso()
+    {
+        Console.WriteLine("L'animale fa un verso.");
+    }
+
+    // Metodo ToString sovrascritto
+    public override string ToString()
+    {
+        return $"Nome: {nome}";
+    }
+}
+```
+
+#### Classe Derivata `Cane`
+
+```csharp
+public class Cane : Animale
+{
+    // Campo specifico della classe Cane
+    public string Razza { get; set; }
+
+    // Costruttore che chiama il costruttore base
+    public Cane(string nome, string razza) : base(nome)
+    {
+        this.Razza = razza;
+    }
+
+    // Override del metodo FaiVerso
+    public override void FaiVerso()
+    {
+        Console.WriteLine("Il cane abbaia.");
+    }
+
+    // Override del metodo ToString
+    public override string ToString()
+    {
+        return base.ToString() + $", Razza: {Razza}";
+    }
+}
+```
+
+#### Classe Derivata `Gatto`
+
+```csharp
+public class Gatto : Animale
+{
+    // Campo specifico della classe Gatto
+    public string Colore { get; set; }
+
+    // Costruttore che chiama il costruttore base
+    public Gatto(string nome, string colore) : base(nome)
+    {
+        this.Colore = colore;
+    }
+
+    // Override del metodo FaiVerso
+    public override void FaiVerso()
+    {
+        Console.WriteLine("Il gatto miagola.");
+    }
+
+    // Override del metodo ToString
+    public override string ToString()
+    {
+        return base.ToString() + $", Colore: {Colore}";
+    }
+}
+```
+
+#### Programma Principale
+
+```csharp
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Creazione di un oggetto Cane
+        Cane cane = new Cane("Fido", "Labrador");
+        Console.WriteLine(cane);  // Output: Nome: Fido, Razza: Labrador
+        cane.FaiVerso();  // Output: Il cane abbaia.
+
+        // Creazione di un oggetto Gatto
+        Gatto gatto = new Gatto("Micio", "Nero");
+        Console.WriteLine(gatto);  // Output: Nome: Micio, Colore: Nero
+        gatto.FaiVerso();  // Output: Il gatto miagola.
+
+        // Uso di polimorfismo
+        Animale animale1 = cane;
+        Animale animale2 = gatto;
+
+        Console.WriteLine(animale1);  // Output: Nome: Fido, Razza: Labrador
+        Console.WriteLine(animale2);  // Output: Nome: Micio, Colore: Nero
+
+        animale1.FaiVerso();  // Output: Il cane abbaia.
+        animale2.FaiVerso();  // Output: Il gatto miagola.
+    }
+}
+```
+
+### Spiegazione del Codice
+
+1. **Classe Base `Animale`**:
+   - Definisce un campo privato `nome` e una proprietà pubblica `Nome`.
+   - Include un costruttore per inizializzare `nome`.
+   - Ha un metodo virtuale `FaiVerso` che può essere sovrascritto nelle classi derivate.
+   - Sovrascrive il metodo `ToString` per fornire una rappresentazione stringa dell'oggetto.
+
+2. **Classe Derivata `Cane`**:
+   - Eredita dalla classe `Animale`.
+   - Aggiunge un campo specifico `Razza`.
+   - Sovrascrive il metodo `FaiVerso` per fornire un comportamento specifico.
+   - Sovrascrive il metodo `ToString` per includere anche la razza del cane.
+
+3. **Classe Derivata `Gatto`**:
+   - Eredita dalla classe `Animale`.
+   - Aggiunge un campo specifico `Colore`.
+   - Sovrascrive il metodo `FaiVerso` per fornire un comportamento specifico.
+   - Sovrascrive il metodo `ToString` per includere anche il colore del gatto.
+
+4. **Programma Principale**:
+   - Crea istanze di `Cane` e `Gatto`, e invoca i loro metodi.
+   - Dimostra l'uso del polimorfismo assegnando istanze di `Cane` e `Gatto` a variabili di tipo `Animale`.
+   - Mostra che i metodi sovrascritti vengono chiamati correttamente anche quando si utilizzano riferimenti di tipo base (`Animale`).
+
+
+
+_____________________________________________________________
+
+
+
+# Parte 2 
+
 <br><br><br>
-
-
+<br><br><br>
+<br><br><br>
+______________________
 
 ### Disaccoppiamento dei Metodi e Gestione degli Eventi in C#
 
