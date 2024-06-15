@@ -2852,11 +2852,160 @@ class Program
 
 Questi esempi mostrano come lavorare con le collezioni e come creare e utilizzare tipi, interfacce, metodi e delegati generici, offrendo flessibilità e riusabilità nel codice C#.
 
+________________________________
 
 
+# GARBAGE COLLECTION
 
 
+### Gestione della Durata degli Oggetti e Controllo delle Risorse in C#
 
+In C#, la gestione della durata degli oggetti e il controllo delle risorse sono aspetti fondamentali per garantire l'efficienza e la stabilità delle applicazioni. Questi concetti sono strettamente legati alla gestione della memoria e delle risorse non gestite (come file, connessioni di rete e database).
+
+### Introduzione alla Garbage Collection
+
+La Garbage Collection (GC) in C# è un processo automatico che gestisce l'allocazione e la deallocazione della memoria per gli oggetti. Il GC rileva e rimuove gli oggetti che non sono più raggiungibili dal codice dell'applicazione, liberando così la memoria.
+
+#### Funzionamento della Garbage Collection
+
+1. **Allocazione**: Quando un oggetto viene creato, la memoria viene allocata nel managed heap.
+2. **Generazioni**: Gli oggetti sono suddivisi in tre generazioni (0, 1, 2) per ottimizzare la gestione della memoria.
+3. **Raccolta**: Il GC esegue una raccolta quando la memoria è insufficiente o viene esplicitamente richiesta tramite `GC.Collect()`.
+4. **Compattazione**: Dopo la raccolta, il GC compatta la memoria, riducendo la frammentazione.
+
+### Esempio: Garbage Collection
+
+```csharp
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            var obj = new object();
+        }
+
+        Console.WriteLine("Eseguito il loop.");
+        GC.Collect();  // Richiama esplicitamente la Garbage Collection
+        GC.WaitForPendingFinalizers();  // Attende che tutti i finalizzatori pendenti vengano eseguiti
+        Console.WriteLine("Garbage Collection eseguita.");
+    }
+}
+```
+
+### Gestione delle Risorse
+
+Oltre alla memoria, le applicazioni devono gestire risorse non gestite come file, connessioni di rete e database. In C#, la gestione delle risorse viene tipicamente eseguita utilizzando il pattern `Dispose` e l'interfaccia `IDisposable`.
+
+#### Pattern Dispose e Interfaccia IDisposable
+
+L'interfaccia `IDisposable` definisce un metodo `Dispose` che deve essere implementato per rilasciare le risorse.
+
+```csharp
+public class Risorsa : IDisposable
+{
+    private bool disposed = false;
+
+    public void UsaRisorsa()
+    {
+        if (disposed)
+        {
+            throw new ObjectDisposedException("Risorsa");
+        }
+        Console.WriteLine("Usando la risorsa...");
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);  // Impedisce che il finalizzatore venga chiamato
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
+        {
+            if (disposing)
+            {
+                // Rilascia le risorse gestite
+            }
+            // Rilascia le risorse non gestite
+            disposed = true;
+        }
+    }
+
+    ~Risorsa()
+    {
+        Dispose(false);
+    }
+}
+```
+
+#### Utilizzo del Pattern Dispose
+
+```csharp
+class Program
+{
+    static void Main()
+    {
+        using (var risorsa = new Risorsa())
+        {
+            risorsa.UsaRisorsa();
+        }  // Dispose viene chiamato automaticamente alla fine del blocco using
+
+        Console.WriteLine("Risorsa gestita.");
+    }
+}
+```
+
+### Esempio Completo: Gestione di File con `StreamWriter`
+
+```csharp
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string path = "example.txt";
+
+        // Scrittura di un file usando StreamWriter
+        using (StreamWriter writer = new StreamWriter(path))
+        {
+            writer.WriteLine("Ciao, mondo!");
+        }  // StreamWriter viene chiuso e risorse rilasciate automaticamente
+
+        // Lettura di un file usando StreamReader
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string content = reader.ReadToEnd();
+            Console.WriteLine("Contenuto del file: " + content);
+        }  // StreamReader viene chiuso e risorse rilasciate automaticamente
+    }
+}
+```
+
+### Spiegazione del Codice
+
+1. **Garbage Collection**:
+   - Nel primo esempio, il metodo `GC.Collect()` viene chiamato esplicitamente per forzare la garbage collection. Questo è generalmente sconsigliato poiché il GC gestisce la memoria in modo efficiente e chiamarlo manualmente può causare un degrado delle prestazioni.
+
+2. **Pattern Dispose**:
+   - La classe `Risorsa` implementa `IDisposable` e definisce il metodo `Dispose` per rilasciare risorse. Il metodo `Dispose` viene chiamato automaticamente alla fine del blocco `using`, garantendo che le risorse siano rilasciate correttamente.
+   - Il metodo `Dispose(bool disposing)` differenzia tra risorse gestite e non gestite. Le risorse non gestite vengono rilasciate sia in `Dispose` che nel distruttore `~Risorsa`, mentre le risorse gestite vengono rilasciate solo in `Dispose`.
+
+3. **Gestione di File**:
+   - L'uso di `StreamWriter` e `StreamReader` all'interno di un blocco `using` garantisce che i file vengano chiusi e le risorse rilasciate correttamente alla fine del blocco.
+
+### Conclusioni
+
+- **Garbage Collection**: Automatica e gestita dal runtime, libera la memoria degli oggetti non più in uso.
+- **Pattern Dispose e IDisposable**: Forniscono un modo per rilasciare risorse non gestite in modo deterministico, assicurando che risorse come file e connessioni vengano correttamente chiuse e rilasciate.
+
+Gestire correttamente la durata degli oggetti e le risorse è cruciale per evitare perdite di memoria e garantire l'efficienza e la stabilità delle applicazioni C#.
 
 
 
