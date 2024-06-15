@@ -1878,7 +1878,149 @@ class Program
 }
 ```
 
-In questo esempio, l'enumerazione `StatoOrdine` rappresenta i diversi stati di un ordine. Il programma simula il cambiamento dello stato dell'ordine e mostra come convertire tra valori interi ed enum.
+_____________________________
+
+
+# PROGRAMMAZIONE A OGGETTI 
+
+
+In C#, le classi sono uno degli elementi fondamentali della programmazione orientata agli oggetti. Ecco una panoramica su come definire una classe in .NET 8, come usare i modificatori di accesso, creare metodi getter e setter, definire un costruttore e sovrascrivere il metodo `ToString()`.
+
+### Definire una Classe
+
+Per creare una classe in C#, si utilizza la parola chiave `class`:
+
+```csharp
+public class Persona
+{
+    // Campi privati
+    private string nome;
+    private int eta;
+
+    // Proprietà con metodi getter e setter
+    public string Nome
+    {
+        get { return nome; }
+        set { nome = value; }
+    }
+
+    public int Eta
+    {
+        get { return eta; }
+        set { eta = value; }
+    }
+
+    // Costruttore
+    public Persona(string nome, int eta)
+    {
+        this.nome = nome;
+        this.eta = eta;
+    }
+
+    // Metodo ToString sovrascritto
+    public override string ToString()
+    {
+        return $"Nome: {nome}, Età: {eta}";
+    }
+}
+```
+
+### Modificatori di Accesso
+
+In C#, i modificatori di accesso determinano la visibilità di classi, metodi e variabili. I più comuni sono:
+
+- `public`: accessibile da qualsiasi parte del programma.
+- `private`: accessibile solo all'interno della stessa classe.
+- `protected`: accessibile all'interno della stessa classe e delle classi derivate.
+- `internal`: accessibile all'interno dello stesso assembly.
+- `protected internal`: accessibile all'interno dello stesso assembly e dalle classi derivate.
+
+### Proprietà con Metodi Getter e Setter
+
+Le proprietà in C# vengono spesso usate al posto dei campi pubblici per fornire accesso controllato ai dati. È possibile definire proprietà con metodi getter e setter:
+
+```csharp
+public class Persona
+{
+    private string nome;
+    private int eta;
+
+    public string Nome
+    {
+        get { return nome; }
+        set { nome = value; }
+    }
+
+    public int Eta
+    {
+        get { return eta; }
+        set { eta = value; }
+    }
+}
+```
+
+### Costruttore
+
+Il costruttore è un metodo speciale che viene chiamato quando si crea una nuova istanza di una classe. Viene utilizzato per inizializzare i campi della classe:
+
+```csharp
+public Persona(string nome, int eta)
+{
+    this.nome = nome;
+    this.eta = eta;
+}
+```
+
+### Sovrascrivere il Metodo `ToString()`
+
+Il metodo `ToString()` viene utilizzato per restituire una rappresentazione stringa di un oggetto. È spesso utile sovrascriverlo per fornire una descrizione significativa dell'oggetto:
+
+```csharp
+public override string ToString()
+{
+    return $"Nome: {nome}, Età: {eta}";
+}
+```
+
+### Esempio Completo
+
+Ecco un esempio completo che mette insieme tutto:
+
+```csharp
+public class Persona
+{
+    private string nome;
+    private int eta;
+
+    public string Nome
+    {
+        get { return nome; }
+        set { nome = value; }
+    }
+
+    public int Eta
+    {
+        get { return eta; }
+        set { eta = value; }
+    }
+
+    public Persona(string nome, int eta)
+    {
+        this.nome = nome;
+        this.eta = eta;
+    }
+
+    public override string ToString()
+    {
+        return $"Nome: {nome}, Età: {eta}";
+    }
+}
+```
+
+
+
+
+
 
 
 
