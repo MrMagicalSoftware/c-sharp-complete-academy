@@ -2017,6 +2017,86 @@ public class Persona
 }
 ```
 
+______________________________________________________________________________
+
+
+# PRINCIPIO DI OVERLODING :
+
+L'overloading (sovraccarico) in C# è una funzionalità che permette di definire più metodi con lo stesso nome ma con parametri diversi all'interno della stessa classe. Questo consente di utilizzare lo stesso nome di metodo per operazioni simili che richiedono diversi tipi di input.
+
+Questo esempio dimostra come l'overloading dei metodi possa rendere una classe più versatile e facile da usare, permettendo operazioni simili con input diversi.
+
+```csharp
+public class Calcolatrice
+{
+    // Metodo per sommare due numeri interi
+    public int Somma(int a, int b)
+    {
+        return a + b;
+    }
+
+    // Metodo per sommare tre numeri interi
+    public int Somma(int a, int b, int c)
+    {
+        return a + b + c;
+    }
+
+    // Metodo per sommare due numeri a virgola mobile
+    public double Somma(double a, double b)
+    {
+        return a + b;
+    }
+
+    // Metodo per sommare tre numeri a virgola mobile
+    public double Somma(double a, double b, double c)
+    {
+        return a + b + c;
+    }
+
+    // Metodo per concatenare due stringhe
+    public string Somma(string a, string b)
+    {
+        return a + b;
+    }
+}
+
+// Esempio di utilizzo della classe Calcolatrice
+class Program
+{
+    static void Main(string[] args)
+    {
+        Calcolatrice calc = new Calcolatrice();
+
+        // Utilizzo dei vari metodi Somma
+        int sommaInt = calc.Somma(1, 2);
+        int sommaTreInt = calc.Somma(1, 2, 3);
+        double sommaDouble = calc.Somma(1.5, 2.5);
+        double sommaTreDouble = calc.Somma(1.5, 2.5, 3.5);
+        string sommaStringhe = calc.Somma("Hello, ", "world!");
+
+        // Stampa dei risultati
+        Console.WriteLine("Somma di due interi: " + sommaInt);
+        Console.WriteLine("Somma di tre interi: " + sommaTreInt);
+        Console.WriteLine("Somma di due double: " + sommaDouble);
+        Console.WriteLine("Somma di tre double: " + sommaTreDouble);
+        Console.WriteLine("Somma di due stringhe: " + sommaStringhe);
+    }
+}
+```
+
+### Spiegazione
+
+1. **Metodo `Somma(int a, int b)`**: somma due numeri interi.
+2. **Metodo `Somma(int a, int b, int c)`**: somma tre numeri interi.
+3. **Metodo `Somma(double a, double b)`**: somma due numeri a virgola mobile.
+4. **Metodo `Somma(double a, double b, double c)`**: somma tre numeri a virgola mobile.
+5. **Metodo `Somma(string a, string b)`**: concatena due stringhe.
+
+Ogni metodo `Somma` ha lo stesso nome ma parametri diversi, consentendo di eseguire operazioni diverse a seconda dei tipi e del numero di parametri forniti.
+
+### Utilizzo
+
+Nel metodo `Main`, viene creata un'istanza della classe `Calcolatrice` e vengono chiamati i vari metodi `Somma` con parametri diversi. I risultati vengono quindi stampati sulla console.
 
 
 
