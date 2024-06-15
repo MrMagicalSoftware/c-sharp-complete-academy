@@ -2099,9 +2099,367 @@ Ogni metodo `Somma` ha lo stesso nome ma parametri diversi, consentendo di esegu
 Nel metodo `Main`, viene creata un'istanza della classe `Calcolatrice` e vengono chiamati i vari metodi `Somma` con parametri diversi. I risultati vengono quindi stampati sulla console.
 
 
+_________________________________________________
+
+<br><br><br>
 
 
 
+### Disaccoppiamento dei Metodi e Gestione degli Eventi in C#
+
+Il disaccoppiamento dei metodi e la gestione degli eventi sono concetti chiave nella programmazione orientata agli oggetti. In C#, ciò viene spesso realizzato tramite l'uso di delegati, espressioni lambda e eventi.
+
+### Dichiarazione e Uso dei Delegati
+
+I delegati sono tipi di riferimento che rappresentano metodi con una firma specifica. Possono essere usati per passare metodi come parametri ad altri metodi.
+
+#### Dichiarazione di un Delegato
+
+```csharp
+public delegate void Operazione(int a, int b);
+```
+
+#### Utilizzo di un Delegato
+
+```csharp
+public class Calcolatrice
+{
+    public void Somma(int a, int b)
+    {
+        Console.WriteLine($"Somma: {a + b}");
+    }
+
+    public void Sottrai(int a, int b)
+    {
+        Console.WriteLine($"Sottrai: {a - b}");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Calcolatrice calc = new Calcolatrice();
+        Operazione operazione;
+
+        operazione = calc.Somma;
+        operazione(5, 3);  // Output: Somma: 8
+
+        operazione = calc.Sottrai;
+        operazione(5, 3);  // Output: Sottrai: 2
+    }
+}
+```
+
+### Utilizzo delle Espressioni Lambda
+
+Le espressioni lambda forniscono una sintassi concisa per scrivere delegati anonimi. Possono essere utilizzate per creare istanze di delegati in modo più compatto.
+
+#### Esempio di Espressione Lambda
+
+```csharp
+Operazione operazione;
+
+operazione = (a, b) => Console.WriteLine($"Somma: {a + b}");
+operazione(5, 3);  // Output: Somma: 8
+
+operazione = (a, b) => Console.WriteLine($"Sottrai: {a - b}");
+operazione(5, 3);  // Output: Sottrai: 2
+```
+
+### Gestione degli Eventi
+
+Gli eventi in C# sono una sintassi speciale per i delegati che permette alle classi di fornire notifiche ai client quando accadono determinate azioni.
+
+#### Dichiarazione di un Evento
+
+```csharp
+public class Processo
+{
+    // Dichiarazione del delegato
+    public delegate void ProcessoCompletatoHandler();
+
+    // Dichiarazione dell'evento
+    public event ProcessoCompletatoHandler ProcessoCompletato;
+
+    public void AvviaProcesso()
+    {
+        Console.WriteLine("Processo in esecuzione...");
+        // Logica del processo
+
+        // Sollevare l'evento quando il processo è completato
+        OnProcessoCompletato();
+    }
+
+    protected virtual void OnProcessoCompletato()
+    {
+        if (ProcessoCompletato != null)
+        {
+            ProcessoCompletato();
+        }
+    }
+}
+```
+
+#### Sottoscrizione e Gestione di un Evento
+
+```csharp
+class Program
+{
+    static void Main(string[] args)
+    {
+        Processo processo = new Processo();
+
+        // Sottoscrivere l'evento
+        processo.ProcessoCompletato += Processo_ProcessoCompletato;
+
+        processo.AvviaProcesso();
+    }
+
+    private static void Processo_ProcessoCompletato()
+    {
+        Console.WriteLine("Il processo è stato completato!");
+    }
+}
+```
+
+### Esempio Completo
+
+Ecco un esempio completo che combina delegati, espressioni lambda e gestione di eventi:
+
+```csharp
+using System;
+
+public delegate void Operazione(int a, int b);
+
+public class Calcolatrice
+{
+    public void Somma(int a, int b)
+    {
+        Console.WriteLine($"Somma: {a + b}");
+    }
+
+    public void Sottrai(int a, int b)
+    {
+        Console.WriteLine($"Sottrai: {a - b}");
+    }
+}
+
+public class Processo
+{
+    public delegate void ProcessoCompletatoHandler();
+    public event ProcessoCompletatoHandler ProcessoCompletato;
+
+    public void AvviaProcesso()
+    {
+        Console.WriteLine("Processo in esecuzione...");
+        // Logica del processo
+
+        // Sollevare l'evento
+        OnProcessoCompletato();
+    }
+
+    protected virtual void OnProcessoCompletato()
+    {
+        if (ProcessoCompletato != null)
+        {
+            ProcessoCompletato();
+        }
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Calcolatrice calc = new Calcolatrice();
+        Operazione operazione;
+
+        // Utilizzo di espressioni lambda per delegati
+        operazione = (a, b) => Console.WriteLine($"Somma Lambda: {a + b}");
+        operazione(5, 3);  // Output: Somma Lambda: 8
+
+        operazione = calc.Somma;
+        operazione(5, 3);  // Output: Somma: 8
+
+        operazione = calc.Sottrai;
+        operazione(5, 3);  // Output: Sottrai: 2
+
+        // Gestione degli eventi
+        Processo processo = new Processo();
+        processo.ProcessoCompletato += () => Console.WriteLine("Il processo è stato completato!");
+        processo.AvviaProcesso();
+    }
+}
+```
+
+### Spiegazione dell'Esempio Completo
+
+1. **Dichiarazione del Delegato**: `Operazione` è un delegato che accetta due interi.
+2. **Classe `Calcolatrice`**: Contiene metodi `Somma` e `Sottrai`.
+3. **Classe `Processo`**: Dichiarazione di un evento `ProcessoCompletato`.
+4. **Metodo `Main`**:
+   - Utilizzo di espressioni lambda per definire rapidamente operazioni.
+   - Esempi di utilizzo del delegato `Operazione` con metodi `Somma` e `Sottrai`.
+   - Gestione dell'evento `ProcessoCompletato`.
+
+
+Questo esempio mostra come combinare delegati, espressioni lambda e eventi per creare un codice flessibile e disaccoppiato.
+
+
+_____________________
+
+
+## DELEGATI :
+
+
+I delegati in C# sono una caratteristica potente e versatile che serve per diverse finalità. Ecco alcuni dei principali usi e vantaggi dei delegati:
+
+### 1. **Disaccoppiamento del Codice**
+
+I delegati consentono di disaccoppiare il codice, separando l'invocazione di un metodo dalla sua implementazione. Questo è utile quando si desidera passare metodi come parametri ad altri metodi, creando un codice più modulare e facile da mantenere.
+
+### 2. **CallBacks**
+
+I delegati vengono utilizzati per implementare callback, che sono metodi passati come parametri e chiamati in un momento successivo. Questo è comune in programmazione asincrona e basata su eventi.
+
+### 3. **Programmazione Orientata agli Eventi**
+
+Gli eventi in C# sono basati sui delegati. Gli eventi permettono agli oggetti di notificare altre parti del programma quando si verifica un'azione specifica, come un click del mouse o il completamento di un'operazione.
+
+### 4. **Metodi Anonimi ed Espressioni Lambda**
+
+I delegati sono alla base delle espressioni lambda e dei metodi anonimi, che consentono di definire blocchi di codice concisi e temporanei da passare come parametri.
+
+### Esempi Pratici di Utilizzo dei Delegati
+
+#### 1. **Disaccoppiamento del Codice**
+
+Immagina di avere una classe `Calcolatrice` con diversi metodi di operazioni matematiche:
+
+```csharp
+public class Calcolatrice
+{
+    public int Somma(int a, int b) => a + b;
+    public int Sottrai(int a, int b) => a - b;
+    public int Moltiplica(int a, int b) => a * b;
+}
+```
+
+Puoi definire un delegato per rappresentare questi metodi:
+
+```csharp
+public delegate int OperazioneMatematica(int a, int b);
+```
+
+E utilizzarli in modo disaccoppiato:
+
+```csharp
+class Program
+{
+    static void Main()
+    {
+        Calcolatrice calc = new Calcolatrice();
+        OperazioneMatematica operazione;
+
+        operazione = calc.Somma;
+        Console.WriteLine("Somma: " + operazione(5, 3));  // Output: Somma: 8
+
+        operazione = calc.Sottrai;
+        Console.WriteLine("Sottrai: " + operazione(5, 3));  // Output: Sottrai: 2
+    }
+}
+```
+
+#### 2. **Callback**
+
+Supponiamo di avere un metodo che esegue un'operazione asincrona e desideri notificare il completamento:
+
+```csharp
+public class Processo
+{
+    public delegate void ProcessoCompletatoHandler();
+    public void AvviaProcesso(ProcessoCompletatoHandler callback)
+    {
+        Console.WriteLine("Processo in esecuzione...");
+        // Simulazione di un processo
+        System.Threading.Thread.Sleep(1000);
+        // Notifica il completamento
+        callback();
+    }
+}
+```
+
+Utilizzo del callback:
+
+```csharp
+class Program
+{
+    static void Main()
+    {
+        Processo processo = new Processo();
+        processo.AvviaProcesso(() => Console.WriteLine("Il processo è stato completato!"));
+    }
+}
+```
+
+#### 3. **Programmazione Orientata agli Eventi**
+
+Gli eventi in C# sono dichiarati utilizzando i delegati:
+
+```csharp
+public class Processo
+{
+    public delegate void ProcessoCompletatoHandler();
+    public event ProcessoCompletatoHandler ProcessoCompletato;
+
+    public void AvviaProcesso()
+    {
+        Console.WriteLine("Processo in esecuzione...");
+        // Simulazione di un processo
+        System.Threading.Thread.Sleep(1000);
+        // Solleva l'evento al completamento
+        OnProcessoCompletato();
+    }
+
+    protected virtual void OnProcessoCompletato()
+    {
+        ProcessoCompletato?.Invoke();
+    }
+}
+```
+
+Sottoscrizione e gestione dell'evento:
+
+```csharp
+class Program
+{
+    static void Main()
+    {
+        Processo processo = new Processo();
+        processo.ProcessoCompletato += () => Console.WriteLine("Il processo è stato completato!");
+        processo.AvviaProcesso();
+    }
+}
+```
+
+### 4. **Metodi Anonimi ed Espressioni Lambda**
+
+Utilizzare espressioni lambda con delegati:
+
+```csharp
+OperazioneMatematica somma = (a, b) => a + b;
+Console.WriteLine("Somma Lambda: " + somma(5, 3));  // Output: Somma Lambda: 8
+```
+
+### Vantaggi dei Delegati
+
+1. **Flessibilità**: Consentono di passare metodi come parametri, permettendo di scegliere quale metodo eseguire in fase di runtime.
+2. **Riutilizzabilità del Codice**: Consentono di creare metodi generici che possono chiamare diversi metodi specificati dall'utente.
+3. **Manutenibilità**: Facilitano la scrittura di codice che è più modulare e più facile da aggiornare.
+4. **Compatibilità con gli Eventi**: Sono essenziali per la programmazione orientata agli eventi, permettendo di definire e gestire eventi in modo semplice.
+
+In conclusione, i delegati in C# sono strumenti potenti per disaccoppiare il codice, implementare callback, gestire eventi e lavorare con espressioni lambda, migliorando la flessibilità e la manutenibilità del codice.
 
 
 
