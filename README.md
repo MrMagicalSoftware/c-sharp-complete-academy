@@ -2625,10 +2625,232 @@ In conclusione, i delegati in C# sono strumenti potenti per disaccoppiare il cod
 
 
 
+_________________________________
+
+
+#  12 - Utilizzo di collezioni e costruzione di tipi generici
+
+Lavorare con le raccolte Creazione e utilizzo di tipi generici Definire interfacce generiche e comprendere la varianza Utilizzo di metodi e delegati generici
 
 
 
+### Lavorare con le Collezioni in C#
 
+Le collezioni sono strutture dati che consentono di memorizzare e gestire gruppi di oggetti. C# fornisce diverse collezioni nella libreria standard, come `List<T>`, `Dictionary<TKey, TValue>`, `Queue<T>`, `Stack<T>`, ecc.
+
+#### Esempio: Utilizzo di `List<T>`
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        List<int> numeri = new List<int> { 1, 2, 3, 4, 5 };
+        numeri.Add(6);
+        numeri.Remove(3);
+
+        foreach (int numero in numeri)
+        {
+            Console.WriteLine(numero);
+        }
+    }
+}
+```
+
+### Creazione e Utilizzo di Tipi Generici
+
+I tipi generici permettono di creare classi e metodi che funzionano con qualsiasi tipo di dato senza compromettere la sicurezza del tipo. Questo aumenta la riusabilità e la flessibilità del codice.
+
+#### Esempio: Classe Generica `Stack<T>`
+
+```csharp
+public class Stack<T>
+{
+    private List<T> elements = new List<T>();
+
+    public void Push(T item)
+    {
+        elements.Add(item);
+    }
+
+    public T Pop()
+    {
+        if (elements.Count == 0)
+        {
+            throw new InvalidOperationException("Lo stack è vuoto.");
+        }
+
+        T item = elements[elements.Count - 1];
+        elements.RemoveAt(elements.Count - 1);
+        return item;
+    }
+
+    public T Peek()
+    {
+        if (elements.Count == 0)
+        {
+            throw new InvalidOperationException("Lo stack è vuoto.");
+        }
+
+        return elements[elements.Count - 1];
+    }
+
+    public int Count
+    {
+        get { return elements.Count; }
+    }
+}
+```
+
+#### Utilizzo della Classe Generica
+
+```csharp
+class Program
+{
+    static void Main()
+    {
+        Stack<int> stack = new Stack<int>();
+        stack.Push(1);
+        stack.Push(2);
+        stack.Push(3);
+
+        Console.WriteLine(stack.Pop()); // Output: 3
+        Console.WriteLine(stack.Peek()); // Output: 2
+        Console.WriteLine(stack.Count);  // Output: 2
+    }
+}
+```
+
+### Definire Interfacce Generiche e Comprendere la Varianza
+
+Le interfacce generiche permettono di definire contratti che i tipi generici devono rispettare. La varianza consente di specificare come i tipi generici possono essere convertiti tra loro.
+
+#### Esempio: Interfaccia Generica `IRepository<T>`
+
+```csharp
+public interface IRepository<T>
+{
+    void Add(T item);
+    void Remove(T item);
+    T GetById(int id);
+    IEnumerable<T> GetAll();
+}
+```
+
+#### Implementazione dell'Interfaccia Generica
+
+```csharp
+public class Repository<T> : IRepository<T>
+{
+    private List<T> items = new List<T>();
+
+    public void Add(T item)
+    {
+        items.Add(item);
+    }
+
+    public void Remove(T item)
+    {
+        items.Remove(item);
+    }
+
+    public T GetById(int id)
+    {
+        // Questa è una simulazione, in un caso reale avresti un modo per ottenere l'ID
+        return items[id];
+    }
+
+    public IEnumerable<T> GetAll()
+    {
+        return items;
+    }
+}
+```
+
+#### Utilizzo dell'Interfaccia Generica
+
+```csharp
+class Program
+{
+    static void Main()
+    {
+        IRepository<int> intRepo = new Repository<int>();
+        intRepo.Add(1);
+        intRepo.Add(2);
+        intRepo.Add(3);
+
+        foreach (var item in intRepo.GetAll())
+        {
+            Console.WriteLine(item);
+        }
+    }
+}
+```
+
+### Utilizzo di Metodi e Delegati Generici
+
+I metodi generici permettono di definire metodi che possono operare su tipi diversi. I delegati generici permettono di definire riferimenti a metodi che possono avere parametri di tipi diversi.
+
+#### Esempio: Metodo Generico
+
+```csharp
+public class Util
+{
+    public static void Scambia<T>(ref T a, ref T b)
+    {
+        T temp = a;
+        a = b;
+        b = temp;
+    }
+}
+```
+
+#### Utilizzo del Metodo Generico
+
+```csharp
+class Program
+{
+    static void Main()
+    {
+        int x = 1;
+        int y = 2;
+        Util.Scambia(ref x, ref y);
+
+        Console.WriteLine($"x: {x}, y: {y}"); // Output: x: 2, y: 1
+    }
+}
+```
+
+#### Esempio: Delegato Generico
+
+```csharp
+public delegate T Operazione<T>(T a, T b);
+
+class Program
+{
+    static void Main()
+    {
+        Operazione<int> somma = (a, b) => a + b;
+        Console.WriteLine(somma(3, 4)); // Output: 7
+
+        Operazione<string> concatena = (a, b) => a + b;
+        Console.WriteLine(concatena("Hello, ", "world!")); // Output: Hello, world!
+    }
+}
+```
+
+### Spiegazione
+
+- **Collezioni**: `List<T>` è utilizzata per memorizzare e gestire una lista di interi.
+- **Tipi Generici**: La classe `Stack<T>` è generica, consentendo di creare uno stack per qualsiasi tipo.
+- **Interfacce Generiche**: `IRepository<T>` definisce un contratto generico per un repository. `Repository<T>` lo implementa.
+- **Metodi Generici**: Il metodo `Scambia<T>` scambia i valori di due variabili di qualsiasi tipo.
+- **Delegati Generici**: `Operazione<T>` permette di definire operazioni generiche, come somma di interi e concatenazione di stringhe.
+
+Questi esempi mostrano come lavorare con le collezioni e come creare e utilizzare tipi, interfacce, metodi e delegati generici, offrendo flessibilità e riusabilità nel codice C#.
 
 
 
