@@ -3436,8 +3436,172 @@ public class Person
 
 
 
+_______________________________________________________________________________________________
 
 
+# TDD
+
+### Sviluppo Basato su Test (Test-Driven Development - TDD) in C#
+
+Il Sviluppo Basato su Test (TDD) è una metodologia di sviluppo software in cui i test vengono scritti prima del codice effettivo. L'idea principale è scrivere un test che fallisca, quindi scrivere il codice minimo necessario per far passare il test, e infine rifattorizzare il codice per migliorarlo mantenendo i test positivi.
+
+### Principi del TDD
+
+1. **Scrivi un test che fallisca**: Prima di scrivere qualsiasi codice, scrivi un test che definisca una nuova funzione o miglioria. Il test inizialmente fallirà poiché la funzionalità non è ancora implementata.
+2. **Scrivi il codice minimo necessario**: Scrivi solo il codice necessario per far passare il test. Non aggiungere funzionalità extra.
+3. **Rifattorizza il codice**: Migliora il codice mantenendo tutti i test positivi. La rifattorizzazione include l'eliminazione della duplicazione e l'ottimizzazione del design.
+
+### Strumenti per il TDD in C#
+
+- **xUnit**: Un popolare framework di test per .NET.
+- **NUnit**: Un altro framework di test ampiamente utilizzato.
+- **MSTest**: Il framework di test ufficiale di Microsoft.
+
+In questo esempio, useremo xUnit per dimostrare il TDD.
+
+### Esempio Completo di TDD con xUnit
+
+#### 1. Installare xUnit
+
+Per utilizzare xUnit, aggiungi il pacchetto `xunit` e `xunit.runner.visualstudio` al tuo progetto. Questo può essere fatto tramite NuGet Package Manager in Visual Studio o aggiungendo direttamente le dipendenze al file `.csproj`.
+
+```xml
+<PackageReference Include="xunit" Version="2.4.1" />
+<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+```
+
+#### 2. Scrivere il Primo Test (Red)
+
+Crea una classe di test e scrivi un test che inizialmente fallisca.
+
+```csharp
+using Xunit;
+
+public class CalculatorTests
+{
+    [Fact]
+    public void Add_WhenCalled_ReturnsSumOfArguments()
+    {
+        // Arrange
+        var calculator = new Calculator();
+
+        // Act
+        var result = calculator.Add(1, 2);
+
+        // Assert
+        Assert.Equal(3, result);
+    }
+}
+```
+
+#### 3. Scrivere il Codice Minimo (Green)
+
+Implementa il codice necessario per far passare il test.
+
+```csharp
+public class Calculator
+{
+    public int Add(int a, int b)
+    {
+        return a + b;
+    }
+}
+```
+
+#### 4. Rifattorizzare il Codice (Refactor)
+
+In questo esempio, il codice è già piuttosto semplice e non necessita di rifattorizzazione. Tuttavia, se ci fossero delle duplicazioni o un design migliorabile, questo sarebbe il momento di fare modifiche mantenendo i test verdi.
+
+### Esempio Esteso: Calcolatrice con Operazioni Multiple
+
+Supponiamo di voler estendere la calcolatrice per includere operazioni di sottrazione, moltiplicazione e divisione.
+
+#### 1. Scrivere Test per Nuove Funzionalità
+
+```csharp
+using Xunit;
+
+public class CalculatorTests
+{
+    [Fact]
+    public void Add_WhenCalled_ReturnsSumOfArguments()
+    {
+        var calculator = new Calculator();
+        var result = calculator.Add(1, 2);
+        Assert.Equal(3, result);
+    }
+
+    [Fact]
+    public void Subtract_WhenCalled_ReturnsDifferenceOfArguments()
+    {
+        var calculator = new Calculator();
+        var result = calculator.Subtract(5, 3);
+        Assert.Equal(2, result);
+    }
+
+    [Fact]
+    public void Multiply_WhenCalled_ReturnsProductOfArguments()
+    {
+        var calculator = new Calculator();
+        var result = calculator.Multiply(3, 4);
+        Assert.Equal(12, result);
+    }
+
+    [Fact]
+    public void Divide_WhenCalled_ReturnsQuotientOfArguments()
+    {
+        var calculator = new Calculator();
+        var result = calculator.Divide(8, 2);
+        Assert.Equal(4, result);
+    }
+
+    [Fact]
+    public void Divide_ByZero_ThrowsDivideByZeroException()
+    {
+        var calculator = new Calculator();
+        Assert.Throws<DivideByZeroException>(() => calculator.Divide(8, 0));
+    }
+}
+```
+
+#### 2. Implementare il Codice Minimo per Far Passare i Test
+
+```csharp
+public class Calculator
+{
+    public int Add(int a, int b)
+    {
+        return a + b;
+    }
+
+    public int Subtract(int a, int b)
+    {
+        return a - b;
+    }
+
+    public int Multiply(int a, int b)
+    {
+        return a * b;
+    }
+
+    public int Divide(int a, int b)
+    {
+        if (b == 0)
+        {
+            throw new DivideByZeroException();
+        }
+        return a / b;
+    }
+}
+```
+
+#### 3. Rifattorizzare il Codice (se necessario)
+
+In questo caso, il codice è già ben strutturato. Se ci fossero miglioramenti o ottimizzazioni da fare, dovrebbero essere fatte in questa fase mantenendo i test verdi.
+
+### Conclusioni
+
+Il TDD aiuta a scrivere codice più pulito, manutenibile e privo di bug. La metodologia obbliga a pensare ai requisiti e ai casi d'uso prima di scrivere il codice, migliorando così la qualità complessiva del software. Utilizzando framework di test come xUnit, NUnit o MSTest, è possibile integrare facilmente il TDD nel proprio workflow di sviluppo C#.
 
 
 
